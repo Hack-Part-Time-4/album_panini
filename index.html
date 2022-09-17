@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h1>Album virtual del mundial</h1>
+        </div>
+        <div class="col-12 text-center">
+          <button id="btn" type="button" class="btn btn-dark">Añadir</button>
+          <button id="btn_2" type="button" class="btn btn-dark">mostrar</button>
+          <button id="btn_3" type="button" class="btn btn-dark">borrar</button>
+          <button id="btn_4" type="button" class="btn btn-dark mt-3">json -> js</button>
+        </div>
+        <div class="col-12">
+          <ul id="lista">
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+
+    <script>
+      //ingresar los datos por medio de un array de objetos
+
+      //vamos a guardar los datos de forma local
+
+      //mostrar estos datos en nuestra pagina web
+
+      let data_base = [];
+
+      function create_data() {
+        let name = prompt('Ingrese el nombre del jugador');
+        let edad = prompt('Ingrese la edad del jugador');
+        let pais = prompt('Ingrese el pais del jugador');
+        let equipo = prompt('Ingrese el equipo del jugador');
+
+        data_base.push({name: name, edad: edad, pais: pais, equipo:equipo});
+        localStorage.setItem('jugador', JSON.stringify(data_base));
+      }
+
+      let btn = document.querySelector('#btn');
+      let btn_2 = document.querySelector('#btn_2');
+      let btn_3 = document.querySelector('#btn_3');
+      let btn_4 = document.querySelector('#btn_4');
+      let lista = document.querySelector('#lista');
+
+      btn.addEventListener('click', ()=>{
+        create_data();
+      });
+
+      btn_2.addEventListener('click', ()=>{
+        console.log(data_base);
+        console.log(localStorage);
+      });
+
+      btn_3.addEventListener('click', ()=>{
+        localStorage.clear();
+      });
+
+      let data_base_2 = localStorage.getItem('jugador');
+      data_base_2 = JSON.parse(data_base_2);
+        
+
+      function imprime() {
+        data_base_2.forEach(data => {
+          let li = document.createElement('li');
+          lista.appendChild(li);
+          li.innerHTML = `
+            <div> ${data.name} </div>
+            <div> ${data.edad} </div>
+            <div> ${data.pais} </div>
+            <div> ${data.equipo} </div>
+          `
+        })
+      };
+
+      imprime()
+
+      
+
+
+      
+
+
+
+
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  </body>
+</html>
